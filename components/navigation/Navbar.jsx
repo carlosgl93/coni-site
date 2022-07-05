@@ -1,67 +1,123 @@
 import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Box,
-  Grid,
   Drawer,
   Avatar,
-  Typography,
   Button,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
+  Divider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import FilterVintageIcon from "@mui/icons-material/FilterVintage";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+
+import {
+  orange,
+  black,
+  backgroundColor,
+  fontColorWhiteBackground,
+} from "../../colors";
 
 const Navbar = () => {
   const [drawer, setDrawer] = useState(false);
 
+  const router = useRouter();
+
   return (
-    <Grid
-      container
+    <Box
       style={{
         padding: "2.5vh 3vw",
-        backgroundColor: "#5DC1B9",
+        backgroundColor: black,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
       }}
     >
-      <Drawer anchor='left' open={drawer} onClose={() => setDrawer(false)}>
+      <Drawer anchor='top' open={drawer} onClose={() => setDrawer(false)}>
         <nav
           aria-label='navigation nav'
           style={{
-            minWidth: "15vw",
+            minWidth: "20vw",
+            backgroundColor: backgroundColor,
           }}
         >
           <List>
             <ListItem>
               <ListItemIcon>
-                <FilterVintageIcon />
+                <CloseOutlinedIcon onClick={() => setDrawer(false)} />
               </ListItemIcon>
-              <ListItemText>Acunar en Flor</ListItemText>
+              <Link href={"/"} onClick={() => setDrawer(false)}>
+                <ListItemText
+                  style={{
+                    textAlign: "center",
+                  }}
+                  onClick={() => setDrawer(false)}
+                >
+                  Te invito
+                </ListItemText>
+              </Link>
+              <ListItemIcon>
+                <ShoppingCartOutlinedIcon
+                  onClick={() => {
+                    setDrawer(false);
+                    router.push("/ShoppingCart");
+                  }}
+                />
+              </ListItemIcon>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <Link href={"/Digitales"}>
+                <ListItemText
+                  style={{
+                    textAlign: "center",
+                  }}
+                  onClick={() => setDrawer(false)}
+                >
+                  Digitales
+                </ListItemText>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href={"/Imprimibles"}>
+                <ListItemText
+                  style={{
+                    textAlign: "center",
+                  }}
+                  onClick={() => setDrawer(false)}
+                >
+                  Imprimibles
+                </ListItemText>
+              </Link>
             </ListItem>
           </List>
         </nav>
       </Drawer>
-      <Grid item md={2}>
-        <Button onClick={() => setDrawer(!drawer)}>
-          <MenuIcon />
-        </Button>
-      </Grid>
-      <Grid item md={2}>
+      <Button onClick={() => setDrawer(!drawer)}>
+        <MenuIcon style={{ color: orange }} />
+      </Button>
+      <Link href='/'>
         <Avatar
-          src='/img/AvatarImg.jpg'
+          src='/img/teInvitoLogo.jpeg'
           sx={{
-            width: 85,
-            height: 85,
+            width: "60px",
+            height: "60px",
           }}
         />
-      </Grid>
-      <Grid item md={8}>
-        <Typography variant='h5'>Constanza Sepulveda Zepeda</Typography>
-      </Grid>
-      <Grid item md={2}></Grid>
-    </Grid>
+      </Link>
+
+      <ShoppingCartOutlinedIcon
+        onClick={() => {
+          router.push("/ShoppingCart");
+        }}
+        style={{ color: orange, margin: "2vh 2vw" }}
+      />
+    </Box>
   );
 };
 
