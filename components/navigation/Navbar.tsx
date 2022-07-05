@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import {
   Box,
@@ -20,11 +21,15 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
+import banner from "../../public/img/banner.png";
+
 import {
   orange,
   black,
   backgroundColor,
   fontColorWhiteBackground,
+  leaf1,
+  leaf2,
 } from "../../colors";
 
 const Navbar = () => {
@@ -75,10 +80,11 @@ const Navbar = () => {
       <Box
         style={{
           padding: "2.5vh 3vw",
-          backgroundColor: black,
+          backgroundColor: backgroundColor,
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          backgroundImage: `url(${banner})`,
         }}
       >
         <Drawer anchor='top' open={drawer} onClose={() => setDrawer(false)}>
@@ -181,13 +187,7 @@ const Navbar = () => {
           <MenuIcon style={{ color: orange }} />
         </Button>
         <Link href='/'>
-          <Avatar
-            src='/img/teInvitoLogo.jpeg'
-            sx={{
-              width: "60px",
-              height: "60px",
-            }}
-          />
+          <Image src={"/img/banner.png"} width={"375px"} height={"100px"} />
         </Link>
 
         <ShoppingCartOutlinedIcon
@@ -197,29 +197,6 @@ const Navbar = () => {
           style={{ color: orange, margin: "2vh 2vw" }}
         />
       </Box>
-      <Link href='https://www.instagram.com/_teinvito/?hl=es'>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            paddingLeft: "5vw",
-            backgroundColor: backgroundColor,
-          }}
-        >
-          <Box sx={{ textAlign: "center", marginTop: "1vh" }}>
-            <InstagramIcon
-              sx={{
-                backgroundColor: orange,
-                borderRadius: "10px",
-              }}
-            />
-          </Box>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant='caption'>@_teinvito.cl</Typography>
-          </Box>
-        </Box>
-      </Link>
     </Box>
   );
 };
