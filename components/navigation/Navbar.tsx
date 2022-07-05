@@ -17,6 +17,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import {
   orange,
@@ -27,6 +29,44 @@ import {
 
 const Navbar = () => {
   const [drawer, setDrawer] = useState(false);
+  const [imprimibles, setImpribles] = useState(false);
+  const [digitales, setDigitales] = useState(false);
+
+  const digitalRoutes = [
+    {
+      id: 0,
+      href: "/matrimonios",
+      title: "Matrimonios",
+    },
+    {
+      id: 1,
+      href: "/cumpleanos",
+      title: "Cumpleaños",
+    },
+    {
+      id: 2,
+      href: "/religiosas",
+      title: "Religiosas",
+    },
+    {
+      id: 3,
+      href: "/babyshower",
+      title: "Babyshower",
+    },
+  ];
+
+  const imprimiblesRoutes = [
+    {
+      id: 0,
+      href: "/santitos",
+      title: "Santitos Imprimibles",
+    },
+    {
+      id: 1,
+      href: "/cuadritos",
+      title: "Cuadritos Imprimibles",
+    },
+  ];
 
   const router = useRouter();
 
@@ -74,30 +114,66 @@ const Navbar = () => {
                 </ListItemIcon>
               </ListItem>
               <Divider />
-              <ListItem>
-                <Link href={"/Digitales"}>
-                  <ListItemText
-                    style={{
-                      textAlign: "center",
-                    }}
-                    onClick={() => setDrawer(false)}
-                  >
-                    Digitales
-                  </ListItemText>
-                </Link>
+              <ListItem onClick={() => setDigitales(!digitales)}>
+                <ListItemIcon>
+                  {digitales ? (
+                    <KeyboardArrowUpIcon />
+                  ) : (
+                    <KeyboardArrowDownIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText
+                  style={{
+                    textAlign: "center",
+                    marginRight: "15vw",
+                  }}
+                >
+                  Digitales
+                </ListItemText>
               </ListItem>
-              <ListItem>
-                <Link href={"/Imprimibles"}>
-                  <ListItemText
-                    style={{
-                      textAlign: "center",
-                    }}
-                    onClick={() => setDrawer(false)}
-                  >
-                    Imprimibles
-                  </ListItemText>
-                </Link>
+              {digitales &&
+                digitalRoutes.map((route) => {
+                  return (
+                    <Link href={route.href}>
+                      <ListItem
+                        style={{ textAlign: "center" }}
+                        onClick={() => setDrawer(false)}
+                      >
+                        <ListItemText>{route.title}</ListItemText>
+                      </ListItem>
+                    </Link>
+                  );
+                })}
+              <ListItem onClick={() => setImpribles(!imprimibles)}>
+                <ListItemIcon>
+                  {imprimibles ? (
+                    <KeyboardArrowUpIcon />
+                  ) : (
+                    <KeyboardArrowDownIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText
+                  style={{
+                    textAlign: "center",
+                    marginRight: "15vw",
+                  }}
+                >
+                  Imprimibles
+                </ListItemText>
               </ListItem>
+              {imprimibles &&
+                imprimiblesRoutes.map((route) => {
+                  return (
+                    <Link href={route.href}>
+                      <ListItem
+                        style={{ textAlign: "center" }}
+                        onClick={() => setDrawer(false)}
+                      >
+                        <ListItemText>{route.title}</ListItemText>
+                      </ListItem>
+                    </Link>
+                  );
+                })}
             </List>
           </nav>
         </Drawer>
@@ -126,8 +202,9 @@ const Navbar = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-
             justifyContent: "center",
+            paddingLeft: "5vw",
+            backgroundColor: backgroundColor,
           }}
         >
           <Box sx={{ textAlign: "center", marginTop: "1vh" }}>
